@@ -1,4 +1,4 @@
-<html manifest="Cache.manifest">
+<html>
 <head>
 <style>
 body{background-color:#000024;background-attachment:fixed;background-size:100%;background-repeat:no-repeat;font-family:system-ui;text-align:center}
@@ -8,11 +8,7 @@ button:hover{font-size:20px;background:#000064;border:2px solid #fff;box-shadow:
 button:active{background:#ee596f;position:relative;color:#000;top:5px;box-shadow:none}
 </style>
 <meta charset="utf-8">
-<title>PS4MACEDO 9.00 SUPERLIGHT 9</title>
-<script> // carrega a cache
-window.applicationCache.onprogress=function(e){document.getElementById("progress").innerHTML='Instalando Cache Offline: <font color="#ee596f">'+Math.round(e.loaded/e.total*100)+"%</font>"},window.applicationCache.oncached=function(){document.getElementById("progress").innerHTML='Cache <font color="#ee596f">instalada</font> com sucesso!!!',setTimeout(function(){document.getElementById("progress").innerHTML='Processo de download da cache para utilizar o <font color="#ee596f">host offline</font>.',document.getElementById("progress").innerHTML='Saia, <font color="#ee596f">desabilite a rede</font> e retorne ao navegador.', cache=true},1500)}
-</script>
-
+<title>PS4MACEDO 9.00 SUPERLIGHT ESP8266 COM GOLDHEN</title>
 <script> // espUSB
 function disableUSB(){
 var getpl = new XMLHttpRequest();
@@ -28,12 +24,7 @@ function sleep(ms){
 return new Promise(resolve => setTimeout(resolve, ms));
 }
 </script>
-<script> // Loader
-function Esconder(){
-var appCache = window.applicationCache;
-if(!(appCache.status !== 1 && appCache.status !== 2)){
-setTimeout(poc,500);}
-}
+<script> // loader
 function loadBIN(){
 var xhr = new XMLHttpRequest();
 xhr.open('GET', PLfile, true);
@@ -51,7 +42,7 @@ return;
 }};
 xhr.send();
 }
-function SendPayload() {
+function SendPayload(){
 var payload_buffer = chain.syscall(477, new int64(0x26200000, 0x9), 0x300000, 7, 0x41000, -1, 0);
 var bufLen = payload.length;
 var payload_loader = p.malloc32(bufLen);
@@ -65,22 +56,21 @@ var pthread = p.malloc(0x10);
 chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
 }
 function hen(){
-progress.innerHTML="Carregando Goldhen v2.2.2... <font color=\"#ee596f\">Aguarde!</font>";
+progress.innerHTML="Carregando Goldhen... <font color=\"#ee596f\">Aguarde!</font>";
 PLfile = "hen.bin";
 setTimeout(loadBIN,1500);
 }
 </script>
 </head>
-<body onload=Esconder()>
+<body onload=setTimeout(poc,150)>
 <br><br><br><br><br>
-<h1><center><font style='color:#fff; font-size: 40px; font-weight: bold; margin: 0 0 0 0.0; text-shadow: 3px 2px #ff5757;'><i>PS4MACEDO Fw 9.00 COM GOLDHEN V2.2.2</i></font></center></h1>
+<h1><center><font style='color:#fff; font-size: 40px; font-weight: bold; margin: 0 0 0 0.0; text-shadow: 3px 2px #ff5757;'><i>PS4MACEDO ESP8266 FW 9.00 COM GOLDHEN</i></font></center></h1>
 <br><br><br><br>
 <hr width="65%" size="1" color="#ff5757">
 <div id=progress style=font-size:31px;text-align:center;color:#fff>Preparando o desbloqueio. Por favor, <font color="#ee596f">AGUARDE!!!</font></div>
 <hr width="65%" size="1" color="#ff5757">
 <br><br><br><br><br><br><br><br><br>
-<font style='color:#fff; font-size:19px;'>Este host funciona em off-line</font>
-<div style='text-align:left;position:fixed;left:10px;bottom:10px;width:100%;font-size:22px;color:#fff'>
+<font style='color:#fff; font-size:19px;'>Host esp8266 com desbloqueio e USB automático.</font><div style='text-align:left;position:fixed;left:10px;bottom:10px;width:100%;font-size:22px;color:#fff'>
 Agradecimento Especial: <font color=#6089f6>TheFloW-SpecterDev-ChendoChap-Znullptr-Sleirsgoevy-SiSTRo-e todos que contribuíram com a cena.</font>
 </div>
 <script> // int64
@@ -963,7 +953,7 @@ chain.run();
 
 //Trigger OOB
 // enable usb - stooged
-window.progress.innerHTML="Simulando USB para o <font color=\"#ee596f\">ExFatHax...</font>";
+window.progress.innerHTML="Ativando a USB para o <font color=\"#ee596f\">ExFatHax...</font>";
 //enableUSB();
 
 
@@ -999,7 +989,7 @@ chain.fcall(window.syscalls[203], patch_buffer, 0x4000);
 chain.fcall(patch_buffer, p.read8(KERNEL_BASE_PTR));
 chain.fcall(window.syscalls[73], patch_buffer, 0x4000);
 chain.run();
-setTimeout(hen,1500);
+setTimeout(hen,1000);
 }
 else
 {
